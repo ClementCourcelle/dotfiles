@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+dark=Everforest
+light=Everforest_Light
+
+change_kitty_theme () {
+  theme=$1
+  for kitty_socket in /tmp/kitty_socket*; do
+    kitty @ --to unix:"$kitty_socket" set-colors --all ~/.config/kitty/kitty-themes/themes/${!theme}.conf
+  done
+}
+#use theme passed as argument or toggle if none
+if [[ -n $1 ]]; then
+  theme=$1
+else
+  theme='dark'
+  curr_theme=$(cat $HOME/.cache/theme)
+  if [[ $curr_theme == 'dark' ]]; then
+    theme='light'
+  fi
+fi
+change_kitty_theme $theme
+echo $theme > $HOME/.cache/theme
