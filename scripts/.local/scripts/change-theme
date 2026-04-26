@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-dark=Everforest
-light=Everforest_Light
+dark=$HOME/.config/kitty/EverforestDarkHard.conf
+light=$HOME/.config/kitty/EverforestLightHard.conf
+
 
 change_kitty_theme () {
   theme=$1
+  ln -fs ${!theme} ~/.config/kitty/current-theme.conf
   for kitty_socket in /tmp/kitty_socket*; do
-    kitty @ --to unix:"$kitty_socket" set-colors --all ~/.config/kitty/kitty-themes/themes/${!theme}.conf
+    kitty @ --to unix:"$kitty_socket" set-colors --all ~/.config/kitty/current-theme.conf
   done
 }
 #use theme passed as argument or toggle if none
