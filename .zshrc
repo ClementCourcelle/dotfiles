@@ -70,10 +70,10 @@ export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # CHANGE THEME
-if [[ -f $HOME/.cache/theme ]]; then
-  local curr_theme=$(cat $HOME/.cache/theme)
-  $HOME/.local/scripts/change-theme $curr_theme # 2>/dev/null
-fi
+# if [[ -f $HOME/.cache/theme ]]; then
+#   local curr_theme=$(cat $HOME/.cache/theme)
+#   $HOME/.local/scripts/change-theme $curr_theme # 2>/dev/null
+# fi
 
 # START IN MAIN TMUX SESSION
 if [[ -z $TMUX ]]; then
