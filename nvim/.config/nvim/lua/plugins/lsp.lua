@@ -10,6 +10,7 @@ return {
 				"clangd",
 				"lua_ls",
 				"pyright",
+				"rust_analyzer",
 			}
 
 			vim.lsp.config("lua_ls", {

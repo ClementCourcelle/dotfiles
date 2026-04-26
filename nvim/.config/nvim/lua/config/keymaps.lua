@@ -47,7 +47,7 @@ vim.keymap.set("n", "<leader>o", ":split <CR>", ns)
 -- vim.keymap.set("n", "<C-l>", "<C-w>l", ns)
 
 -- lsp, linters
--- vim.keymap.set("n", "<leader>gd", ":lua vim.lsp.buf.definition() <CR>", ns)
+vim.keymap.set("n", "<leader>gd", ":lua vim.lsp.buf.definition() <CR>", ns)
 -- vim.keymap.set("n", "<leader>sd", ":lua vim.diagnostic.open_float() <CR>", ns)
 
 -- Misc

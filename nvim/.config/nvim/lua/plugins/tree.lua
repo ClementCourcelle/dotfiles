@@ -17,6 +17,22 @@ local function on_attach_km(bufnr)
 			api.tree.close()
 		end
 	end, opts("Open file and close tree"))
+
+	vim.keymap.set("n", "O", function()
+		local node = api.tree.get_node_under_cursor()
+		api.node.open.horizontal_no_picker()
+		if node.type == "file" then
+			api.tree.close()
+		end
+	end, opts("Open file in horizontal split"))
+
+	vim.keymap.set("n", "E", function()
+		local node = api.tree.get_node_under_cursor()
+		api.node.open.vertical_no_picker()
+		if node.type == "file" then
+			api.tree.close()
+		end
+	end, opts("Open file in vertical split"))
 end
 
 return {

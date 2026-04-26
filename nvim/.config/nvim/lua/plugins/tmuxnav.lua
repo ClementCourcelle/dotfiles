@@ -8,8 +8,8 @@ return {
 				down = "^[j",
 				up = "^[k",
 				right = "^[l",
-				-- last_active = "<C-\\>",
-				-- next = "<C-Space>",
+				-- last_active = "^[!",
+				-- next = "^[!",
 			},
 		})
 	end,

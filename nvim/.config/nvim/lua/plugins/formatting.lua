@@ -14,7 +14,7 @@ return {
 			extra_args = { "--style=file:" .. vim.fn.expand("~/.config/clang-format/.clang-format") },
 		})
 		local black = null_ls.builtins.formatting.black.with({
-			extra_args = { "--line-length", "100" },
+			extra_args = { "--line-length", "100", "--skip-string-normalization" },
 		})
 		local stylua = null_ls.builtins.formatting.stylua
 
