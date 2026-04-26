@@ -1,0 +1,50 @@
+[user]
+        name = Clément Courcelle
+        email = clement.courcelle@inrae.fr
+[advice]
+        statusHints = off
+[alias]
+        lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) -%C(bold yellow)%d%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+        ss = status -s
+	pr = pull -r
+	cm = commit -m
+[checkout]
+        defaultRemote=origin
+[core]
+        excludesfile = ~/.gitignore
+[credential]
+        helper = cache
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""   
+[difftool "vscode"]
+        cmd = code --new-window --wait --diff $LOCAL $REMOTE
+[difftool "meld"]
+        cmd = meld $LOCAL $REMOTE
+[difftool]
+        prompt = false
+[fetch]
+        prune = true
+[include]
+        path = ~/.gitconfig.local
+[init]
+	defaultBranch = main
+[merge]
+        tool = meld
+[mergetool "vscode"]
+        cmd = code --new-window --wait $MERGED
+#        cmd = code --new-window --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[mergetool "meld"]
+        cmd = meld $REMOTE $MERGED $LOCAL
+[mergetool]
+        keepBackup = false
+# pull will do a rebase instead of a merge
+[pull]
+        rebase = merges
+[push]
+        default = simple
+[cola]
+	spellcheck = false
+	theme = flat-dark-blue
+	icontheme = dark

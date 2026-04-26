@@ -1,0 +1,68 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.so*
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Python
+*.pyc
+# Pycharm config
+.idea
+
+# Cmake build
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt
+build/
+
+#qtcreator
+*.user*
+*.creator
+*.files
+*.includes
+
+#vim
+*.swp
+
+# archive files
+*.gz
+
+# log files
+*.dat
+*~
+*.bak
+*.cbp
+debug/
+
+#latex
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+
+#nodejs
+node_modules/
+
+#catkin
+.catkin_tools/
+build/
+devel/
+install/
+logs/
+.target/
+
+#vscode
+.vscode/
+
