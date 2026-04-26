@@ -1,0 +1,122 @@
+alias ls='ls --color=auto'
+alias ll='ls -alsFh'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias t="tmux new-session -A -s main -c $HOME -e SESS_ROOT=$HOME"
+alias n="nvim"
+alias ipa="ip -br -c a"
+alias nmtui='source ~/.config/newt/colors.conf; nmtui'
+
+
+# ROS
+alias buildonly="colcon --log-base /dev/null build --symlink --event-handlers event_log- log- --packages-select-regex"
+alias buildall="colcon --log-base /dev/null build --symlink --event-handlers event_log- log- --parallel-workers=1"
+alias rosdi="rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y"
+alias rosenv="source $HOME/venv/rosdev/bin/activate"
+alias vpull="vcs pull -nw6"
+alias plotjuggler="ros2 run plotjuggler plotjuggler -n"
+
+#DOCKER
+alias dc="docker compose"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+alias dcs="docker compose stop"
+alias dcss="docker compose --profile '*' stop"
+
+
+cd() {
+    # requires fd and fzf
+    if [[ $# -eq 0 ]]; then
+       # reproduce the behavior of `cd` with no arguments
+       builtin cd
+    elif [[ $1 == "-" ]]; then
+       builtin cd - || exit
+    elif [[ -d "$1" ]]; then
+       # if the folder exists, go there
+       builtin cd "$1" || exit
+    else
+       # finally, look for alternatives with fzf based on user input
+		# local sess_root=$(tmux show-environment SESS_ROOT | cut -d= -f2-)
+		local search_paths=(
+           "."                 
+			"$SESS_ROOT"
+       )
+       # builtin cd "$( fd --type directory "${search_paths[@]}" | \
+       # fzf +m --preview-window=right:60%:wrap --preview 'tree -C {} | head -200' \
+       # --query "$1" )" || exit
+       builtin cd "$( fd --type directory "${search_paths[@]}" | \
+       fzf +m --query "$1" )" || exit
+    fi
+}
+
+function cdr(){
+  if [[ -n $TMUX ]]; then
+    # local sess_root=$(tmux show-environment SESS_ROOT | cut -d= -f2-)
+    cd $SESS_ROOT
+  else
+    cd $HOME
+  fi
+}
+
+function dus() {
+  du -hs --time "$1"* | sort -h
+}
+function dut() {
+  du -hs --time "$1"* | sort -k 2
+}
+
+function sros() {
+  source /opt/ros/humble/setup.zsh
+  source /usr/share/gazebo/setup.sh
+  if [[ -f ./install/local_setup.zsh ]]; then
+    source ./install/local_setup.zsh
+  elif [[ -n $TMUX && -f $SESS_ROOT/install/local_setup.zsh ]]; then
+    source $SESS_ROOT/install/local_setup.zsh
+  fi
+  source /opt/ros/$ROS_DISTRO/share/ros2cli/environment/ros2-argcomplete.zsh
+  export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+  #export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+  export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  export CYCLONEDDS_URI="<CycloneDDS><Domain>
+  <General><Interfaces><NetworkInterface name=\"lo\"/></Interfaces><AllowMulticast>true</AllowMulticast></General>
+  <Discovery><ParticipantIndex>none</ParticipantIndex></Discovery>
+  </Domain></CycloneDDS>
+  <Gen><Allow>spdp</Allow></Gen>"
+}
+
+function async_sros() {
+  {
+    sros
+    export -p > "$1"
+    touch "$2"
+  } >/dev/null 2>&1 &
+}
+
+
+function mkcd {
+  last=$(eval "echo \$$#")
+  if [ ! -n "$last" ]; then
+    echo "Enter a directory name"
+  elif [ -d $last ]; then
+    echo "\`$last' already exists"
+  else
+    mkdir $@ && cd $last
+  fi
+}
+
+function install_devcontainer {
+  bash $HOME/projects/devcontainer_template/install_dev.sh "$@"
+  docker compose -f .devcontainer/compose.yaml build nvim
+  docker compose -f .devcontainer/compose.yaml run --rm compile
+}
+
+function dev {
+  if [[ -f "./.devcontainer/compose.yaml" ]]; then
+    docker compose -f .devcontainer/compose.yaml run --rm nvim
+  else
+    echo "No devcontainer"
+  fi
+}
