@@ -14,6 +14,9 @@ return {
 						horizontal = "right:40%",
 					},
 				},
+				files = {
+					follow = true,
+				},
 			})
 		end,
 		cmd = "FzfLua",
