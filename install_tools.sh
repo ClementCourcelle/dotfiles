@@ -61,6 +61,7 @@ install_nvim() {
   curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz -o /tmp/nvim
   tar -C /opt -xzf /tmp/nvim
   ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+  apt install tree-sitter-cli
 }
 
 # TODO Clang
