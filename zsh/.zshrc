@@ -65,6 +65,7 @@ bindkey ${keycodes[shift_dn]}  history-beginning-search-forward
 # bindkey -s '^F' ' ~/.local/scripts/tmux-sessionizer\n'
 
 source $HOME/.config/zsh/zsh_aliases
+[ -f ~/.config/zsh/local_aliases ] && source ~/.config/zsh/local_aliases
 
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
