@@ -1,13 +1,4 @@
-# PROMPT
-fpath+=($HOME/.config/zsh/pure)
-autoload -U promptinit; promptinit
-
 source <(docker completion zsh)
-
-PURE_CMD_MAX_EXEC_TIME=60
-PURE_PROMPT_SYMBOL=$
-
-prompt pure
 
 setopt append_history        # parallel zsh share new entries from history
 setopt bang_hist             # perform textual history expansion
@@ -70,17 +61,15 @@ source $HOME/.config/zsh/zsh_aliases
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# CHANGE THEME
-# if [[ -f $HOME/.cache/theme ]]; then
-#   local curr_theme=$(cat $HOME/.cache/theme)
-#   $HOME/.local/scripts/change-theme $curr_theme # 2>/dev/null
-# fi
-
 # START IN MAIN TMUX SESSION
 if [[ -z $TMUX ]]; then
   tmux new-session -A -s main -c $HOME -e SESS_ROOT=$HOME
 fi
 
+# PYTHON VENV
+if [[ -d $SESS_ROOT/.venv/"$(basename $SESS_ROOT)" ]]; then
+  source $SESS_ROOT/.venv/"$(basename $SESS_ROOT)"/bin/activate
+fi
 
 # ROS
 if [[ ! -n $SSH_CLIENT  ]]; then
@@ -103,3 +92,13 @@ if [[ ! -n $SSH_CLIENT  ]]; then
     add-zsh-hook preexec _ros_env_watcher
   fi
 fi
+
+# PROMPT
+fpath+=($HOME/.config/zsh/pure)
+autoload -U promptinit; promptinit
+
+PURE_CMD_MAX_EXEC_TIME=60
+PURE_PROMPT_SYMBOL=$
+
+prompt pure
+
