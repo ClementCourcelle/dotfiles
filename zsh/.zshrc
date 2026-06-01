@@ -1,3 +1,4 @@
+autoload -U add-zsh-hook
 source <(docker completion zsh)
 
 setopt append_history        # parallel zsh share new entries from history
