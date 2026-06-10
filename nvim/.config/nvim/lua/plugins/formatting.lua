@@ -41,6 +41,7 @@ return {
 						group = format_group,
 						buffer = bufnr,
 						callback = function()
+							if vim.g.autoformat == false then return end
 							vim.lsp.buf.format({
 								bufnr = bufnr,
 								async = false,

@@ -41,6 +41,26 @@ vim.keymap.set("n", "<leader>q", function()
 	})
 end, { desc = "Format buffer" }, ns)
 
+vim.keymap.set("v", "<leader>q", function()
+	vim.lsp.buf.format({
+		async = false,
+		filter = function(client)
+			return client.name == "null-ls"
+		end,
+	})
+end, { desc = "Format selection" }, ns)
+
+-- Toggle autoformat on save (nil/true = on, false = off)
+vim.keymap.set("n", "<leader>tf", function()
+	if vim.g.autoformat == false then
+		vim.g.autoformat = true
+		vim.notify("Autoformat on save: ON")
+	else
+		vim.g.autoformat = false
+		vim.notify("Autoformat on save: OFF")
+	end
+end, { desc = "Toggle autoformat on save" }, ns)
+
 -- Splits
 vim.keymap.set("n", "<leader>e", ":vsplit <CR>", ns)
 vim.keymap.set("n", "<leader>o", ":split <CR>", ns)
