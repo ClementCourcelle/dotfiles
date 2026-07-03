@@ -1,5 +1,4 @@
 *history
 *local_aliases
-.zcompdump*
-*lazy-lock.json
+lazy-lock.json
 *current-theme.conf

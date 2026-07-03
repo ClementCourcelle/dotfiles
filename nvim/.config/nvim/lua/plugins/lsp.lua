@@ -9,7 +9,7 @@ return {
 			local servers = {
 				"clangd",
 				"lua_ls",
-				"pyright",
+				"pyrefly",
 				"rust_analyzer",
 			}
 

@@ -17,6 +17,8 @@
 *.pyc
 # Pycharm config
 .idea
+# virtual env
+.venv
 
 # Cmake build
 CMakeCache.txt
