@@ -68,7 +68,7 @@ if [[ -z $TMUX ]]; then
 fi
 
 # PYTHON VENV
-if [[ -d $SESS_ROOT/.venv/"$(basename $SESS_ROOT)" ]]; then
+if [[ -d $SESS_ROOT && -d $SESS_ROOT/.venv/"$(basename $SESS_ROOT)" ]]; then
   source $SESS_ROOT/.venv/"$(basename $SESS_ROOT)"/bin/activate
 fi
 
