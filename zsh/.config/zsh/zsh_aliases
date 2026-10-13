@@ -9,6 +9,7 @@ alias t="tmux new-session -A -s main -c $HOME -e SESS_ROOT=$HOME"
 alias n="nvim"
 alias ipa="ip -br -c a"
 alias nmtui='source ~/.config/newt/colors.conf; nmtui'
+alias obsidian='flatpak run md.obsidian.Obsidian'
 
 
 # ROS
