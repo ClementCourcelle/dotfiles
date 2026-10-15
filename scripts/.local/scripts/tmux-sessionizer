@@ -6,6 +6,7 @@ else
     selected=$( \
       find \
       ~/projects \
+      ~/projects/misc \
       ~/tests \
       ~/ssh_sessions \
     -mindepth 1 -maxdepth 1 -type d,l | fzf \
